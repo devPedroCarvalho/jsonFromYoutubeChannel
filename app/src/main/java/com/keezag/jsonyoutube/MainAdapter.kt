@@ -4,14 +4,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.keezag.jsonyoutube.view.HomeFeed
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.layout_list.view.*
 
-class MainAdapter : RecyclerView.Adapter<CustomViewHolder>() {
+class MainAdapter(val homeFeed: HomeFeed) : RecyclerView.Adapter<CustomViewHolder>() {
 
-    val videoTitles = listOf("Primeiro titulo","Segundo titulo", "Terceiro titulo","quarto")
+    //val videoTitles = listOf("Primeiro titulo","Segundo titulo", "Terceiro titulo","quarto")
 
     override fun getItemCount(): Int {
-return videoTitles.size
+     return homeFeed.videos.count()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
@@ -22,8 +24,16 @@ return videoTitles.size
     }
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        val videoTitles = videoTitles[position]
-        holder.view.txt_titleVideo.text = videoTitles
+        //val videoTitles = videoTitles[position]
+        val video = homeFeed.videos[position]
+        holder.view.txt_titleVideo.text = video.name
+        val profileImageView = holder.view.imageView
+        Picasso.get()
+            .load(video.imageUrl)
+            .into(profileImageView)
+
+
+
 
     }
 
